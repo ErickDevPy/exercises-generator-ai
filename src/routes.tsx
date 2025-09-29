@@ -1,9 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
-import { MenuPage } from "./Pages";
+import { ConfigPage, MenuPage } from "./Pages";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MenuPage />,
+  },
+  {
+    path: "/config",
+    element: <ConfigPage />,
   },
 ]);

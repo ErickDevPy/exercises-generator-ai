@@ -1,0 +1,1 @@
+export { useConfigPage } from "./useConfigPage";

@@ -32,3 +32,7 @@
 .main-btn:hover {
     background-color: var(--color-primary-light);
 }
+
+.key-input {
+    @apply bg-white p-5 rounded-3xl;
+}

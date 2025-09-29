@@ -1,4 +1,4 @@
-export default function MenuPage() {
+export function MenuPage() {
 
     return (
         <div className="background">

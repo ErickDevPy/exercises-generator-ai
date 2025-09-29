@@ -1,12 +1,12 @@
 export default function MenuPage() {
 
     return (
-        <div>
-            <div>
+        <div className="background">
+            <div className="container flex-col justify-center items-center gap-15">
                 <h1>Exercises Generator</h1>
-                <div>
-                    <button>Generate Exercises</button>
-                    <button>Config</button>
+                <div className="flex flex-col gap-8">
+                    <button className="menu-btn">Generate Exercises</button>
+                    <button className="menu-btn">Config</button>
                 </div>
             </div>
         </div>

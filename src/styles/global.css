@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+    --color-primary: #1E40AF;
+    --color-primary-light: #3B82F6;
+    --color-secondary: #60A5FA;
+
+    --color-background-light: #F8FAFF;
+    --color-text-dark: #1F2937;
+}
+
+@layer base {
+    h1 {
+        @apply text-5xl font-extrabold bg-white rounded-2xl p-3;
+    }
+}
+
+.background {
+    @apply flex w-screen h-screen justify-center items-center;
+    background-color: var(--color-background-light);
+}
+
+.container {
+    @apply flex w-[70%] h-[80%] p-5 rounded-3xl;
+    background-color: var(--color-primary);
+}
+
+.menu-btn {
+    @apply rounded-3xl p-5 text-2xl font-light bg-white transition duration-300 ease-in-out;
+}
+.menu-btn:hover {
+    background-color: var(--color-primary-light);
+}

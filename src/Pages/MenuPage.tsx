@@ -6,7 +6,7 @@ export function MenuPage() {
         <div className="background">
             <div className="container flex-col justify-center items-center gap-15">
                 <h1>Exercises Generator</h1>
-                <div className="flex flex-col gap-8">
+                <div className="items-col">
                     <button className="main-btn">Generate Exercises</button>
                     <button onClick={() => onGoToConfig()} className="main-btn">Config</button>
                 </div>

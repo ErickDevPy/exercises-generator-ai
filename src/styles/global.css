@@ -25,6 +25,10 @@
     background-color: var(--color-primary);
 }
 
+.items-col {
+    @apply flex flex-col gap-8;
+}
+
 .main-btn {
     @apply rounded-3xl p-5 text-2xl font-light bg-white transition duration-300 ease-in-out;
 }
@@ -33,6 +37,6 @@
     background-color: var(--color-primary-light);
 }
 
-.key-input {
+.main-input {
     @apply bg-white p-5 rounded-3xl;
 }

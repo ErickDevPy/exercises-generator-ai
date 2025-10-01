@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ConfigPage, MenuPage } from "./Pages";
+import { ConfigPage, ExercisesParamsPage, MenuPage } from "./Pages";
 
 export const router = createBrowserRouter([
   {
@@ -9,5 +9,9 @@ export const router = createBrowserRouter([
   {
     path: "/config",
     element: <ConfigPage />,
+  },
+  {
+    path: "/exercises-params",
+    element: <ExercisesParamsPage />,
   },
 ]);

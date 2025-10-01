@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ConfigPage, ExercisesParamsPage, MenuPage } from "./Pages";
+import { ConfigPage, ExercisesPage, ExercisesParamsPage, MenuPage } from "./Pages";
 
 export const router = createBrowserRouter([
   {
@@ -14,4 +14,8 @@ export const router = createBrowserRouter([
     path: "/exercises-params",
     element: <ExercisesParamsPage />,
   },
+  {
+    path: "/exercises",
+    element: <ExercisesPage />,
+  }
 ]);

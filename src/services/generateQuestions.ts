@@ -12,7 +12,8 @@ interface generateQuestionsParams {
 }
 
 export async function generateQuestions({ subject, reference, history, difficulty, exercisesNumber }: generateQuestionsParams) {
-    const ai = new GoogleGenAI({});
+    const apiKey = localStorage.getItem('key');
+    const ai = new GoogleGenAI({apiKey: apiKey || ''});
     const model = "gemini-2.5-flash";
     const prompt = createPrompt({ subject, reference, history, difficulty, exercisesNumber });
 

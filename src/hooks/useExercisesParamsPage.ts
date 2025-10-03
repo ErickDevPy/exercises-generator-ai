@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { generateQuestions } from "~/services";
 
 export function useExercisesParamsPage() {
     const navigate = useNavigate();
@@ -25,6 +26,25 @@ export function useExercisesParamsPage() {
         setExercisesNumber(newNumber);
     }
 
+    const onGenerateExercises = async () => {
+        const questions = [];
+        const arrayOfSubjects = subjects.split(',');
+        for (let subject of arrayOfSubjects) {
+            const generatedQuestions = await generateQuestions({
+                subject,
+                reference,
+                difficulty,
+                exercisesNumber,
+            });
+
+            questions.push(generatedQuestions);
+
+            console.log('Generated questions:', generatedQuestions);
+        }
+
+        return questions;
+    }
+
     const onBackToMenu = () => {
         navigate('/');
     }
@@ -39,6 +59,7 @@ export function useExercisesParamsPage() {
         onReferenceChange,
         onExercisesNumberChange,
         onDifficultyChange,
+        onGenerateExercises,
         onBackToMenu
     };
 }

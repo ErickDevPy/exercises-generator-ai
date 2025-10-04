@@ -13,6 +13,8 @@ export const EXERCISE_RESPONSE_SCHEMA = {
                 type: "array",
                 description: "An array containing exactly four strings representing the multiple-choice options.",
                 items: { type: "string" },
+                minItems: 4,
+                maxItems: 4,
             },
             answer: {
                 type: "string",

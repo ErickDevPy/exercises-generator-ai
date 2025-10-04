@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { generateQuestions } from "~/services";
+import { generateExerciseList } from "~/utils";
 
 export function useExercisesParamsPage() {
     const navigate = useNavigate();
@@ -27,21 +27,9 @@ export function useExercisesParamsPage() {
     }
 
     const onGenerateExercises = async () => {
-        const questions = [];
-        const arrayOfSubjects = subjects.split(',');
-        for (let subject of arrayOfSubjects) {
-            const generatedQuestions = await generateQuestions({
-                subject,
-                reference,
-                difficulty,
-                exercisesNumber,
-            });
-
-            questions.push(generatedQuestions);
-
-            console.log('Generated questions:', generatedQuestions);
-        }
-
+        const apiKey = localStorage.getItem('key');
+        const questions = await generateExerciseList({ apiKey, subjects, reference, difficulty, exercisesNumber, history: undefined});
+        console.log(questions);
         return questions;
     }
 

@@ -14,7 +14,7 @@ export function ExercisesParamsPage() {
                             <option key={diff} value={diff.toLowerCase()}>{diff}</option>
                         ))}
                     </select>
-                    <input id="exercisesNumber" value={exercisesNumber} onChange={(e) => onExercisesNumberChange(e.target.valueAsNumber)} className="main-input" type="number" placeholder="Number of exercises"/>
+                    <input id="exercisesNumber" value={exercisesNumber} onChange={(e) => onExercisesNumberChange(e.target.valueAsNumber)} className="main-input" type="number" placeholder="Number of exercises per subject"/>
                 </div>
                 <div className="items-col">
                     <button onClick={() => onGenerateExercises()} className="main-btn">Generate Exercises</button>

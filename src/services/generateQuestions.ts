@@ -1,7 +1,15 @@
 import { GoogleGenAI } from "@google/genai";
-import { createPrompt } from "~/utils";
+import { createPrompt, delay } from "~/utils";
 import type { Exercises } from "~/types";
 import { EXERCISE_RESPONSE_SCHEMA } from "~/types";
+import Bottleneck from "bottleneck";
+
+const MAX_REQUESTS = 10;
+const TIME_WINDOW_MS = 60000;
+const limiter = new Bottleneck({
+    maxConcurrent: 10,
+    minTime: TIME_WINDOW_MS / MAX_REQUESTS
+});
 
 interface generateQuestionsParams {
     apiKey: string;
@@ -17,17 +25,19 @@ export async function generateQuestions({ apiKey, subject, reference, history, d
     const model = "gemini-2.5-flash";
     const prompt = createPrompt({ subject, reference, history, difficulty, exercisesNumber });
 
+    const apiCallFn = () => ai.models.generateContent({
+        model,
+        contents: prompt,
+        config: {
+            responseMimeType: "application/json",
+            responseSchema: EXERCISE_RESPONSE_SCHEMA,
+            temperature: 0.2,
+            maxOutputTokens: 4096,
+        }
+    });
+
     try {
-        const response = await ai.models.generateContent({
-            model,
-            contents: prompt,
-            config: {
-                responseMimeType: "application/json",
-                responseSchema: EXERCISE_RESPONSE_SCHEMA,
-                temperature: 0.2,
-                maxOutputTokens: 4096,
-            }
-        })
+        const response = await limiter.schedule(apiCallFn);
 
         if (!response || !response.text) {
             throw new Error('Error generating questions');
@@ -44,6 +54,8 @@ export async function generateQuestions({ apiKey, subject, reference, history, d
         const missingQuestions = exercisesNumber - exercises.length;
         
         if (missingQuestions === 0) return exercises;
+
+        await delay(6000); 
 
         const remainingQuestions: Exercises = await generateQuestions({ apiKey, subject, reference, history, difficulty, exercisesNumber: missingQuestions });
 

@@ -1,7 +1,7 @@
 import { useExercisesParamsPage } from "~/hooks";
 
 export function ExercisesParamsPage() {
-    const { subjects, reference, exercisesNumber, difficulty, difficulties, onSubjectsChange, onReferenceChange, onExercisesNumberChange, onDifficultyChange, onGenerateExercises, onBackToMenu } = useExercisesParamsPage();
+    const { subjects, reference, exercisesNumber, difficulty, difficulties, onSubjectsChange, onReferenceChange, onExercisesNumberChange, onDifficultyChange, onGoToExercisesPage, onBackToMenu } = useExercisesParamsPage();
     return (
         <div className="background">
             <div className="container flex-col justify-center items-center gap-15">
@@ -17,7 +17,7 @@ export function ExercisesParamsPage() {
                     <input id="exercisesNumber" value={exercisesNumber} onChange={(e) => onExercisesNumberChange(e.target.valueAsNumber)} className="main-input" type="number" placeholder="Number of exercises per subject"/>
                 </div>
                 <div className="items-col">
-                    <button onClick={() => onGenerateExercises()} className="main-btn">Generate Exercises</button>
+                    <button onClick={() => onGoToExercisesPage()} className="main-btn">Continue</button>
                     <button onClick={() => onBackToMenu()} className="main-btn">Back to Menu</button>
                 </div>
             </div>

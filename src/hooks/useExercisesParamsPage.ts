@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { generateExerciseList } from "~/utils";
 
 export function useExercisesParamsPage() {
     const navigate = useNavigate();
@@ -26,11 +25,10 @@ export function useExercisesParamsPage() {
         setExercisesNumber(newNumber);
     }
 
-    const onGenerateExercises = async () => {
-        const apiKey = localStorage.getItem('key');
-        const questions = await generateExerciseList({ apiKey, subjects, reference, difficulty, exercisesNumber, history: undefined});
-        console.log(questions);
-        return questions;
+    const onGoToExercisesPage = async () => {
+        navigate('/exercises', {
+            state: { subjects, reference, difficulty, exercisesNumber }
+        });
     }
 
     const onBackToMenu = () => {
@@ -47,7 +45,7 @@ export function useExercisesParamsPage() {
         onReferenceChange,
         onExercisesNumberChange,
         onDifficultyChange,
-        onGenerateExercises,
+        onGoToExercisesPage,
         onBackToMenu
     };
 }

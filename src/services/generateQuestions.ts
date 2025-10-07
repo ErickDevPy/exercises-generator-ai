@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import { createPrompt, delay } from "~/utils";
+import { createPrompt } from "~/utils";
 import type { Exercises } from "~/types";
 import { EXERCISE_RESPONSE_SCHEMA } from "~/types";
 import Bottleneck from "bottleneck";
@@ -10,6 +10,7 @@ const limiter = new Bottleneck({
     maxConcurrent: 10,
     minTime: TIME_WINDOW_MS / MAX_REQUESTS
 });
+const MAX_HISTORY_SIZE = 50;
 
 interface generateQuestionsParams {
     apiKey: string;
@@ -18,9 +19,10 @@ interface generateQuestionsParams {
     history: string[];
     difficulty: string;
     exercisesNumber: number;
+    addQuestions?: (exercises: Exercises) => void;
 }
 
-export async function generateQuestions({ apiKey, subject, reference, history, difficulty, exercisesNumber }: generateQuestionsParams): Promise<Exercises> {
+export async function generateQuestions({ apiKey, subject, reference, history, difficulty, exercisesNumber, addQuestions }: generateQuestionsParams): Promise<Exercises> {
     const ai = new GoogleGenAI({apiKey});
     const model = "gemini-2.5-flash";
     const prompt = createPrompt({ subject, reference, history, difficulty, exercisesNumber });
@@ -49,15 +51,18 @@ export async function generateQuestions({ apiKey, subject, reference, history, d
 
         if (history) {
             history.push(...exercises.flatMap(ex => ex.question));
+            if (history.length > MAX_HISTORY_SIZE) {
+                history.splice(0, history.length - MAX_HISTORY_SIZE);
+            }
         }
 
         const missingQuestions = exercisesNumber - exercises.length;
+
+        if (addQuestions) addQuestions(exercises);
         
         if (missingQuestions === 0) return exercises;
 
-        await delay(6000); 
-
-        const remainingQuestions: Exercises = await generateQuestions({ apiKey, subject, reference, history, difficulty, exercisesNumber: missingQuestions });
+        const remainingQuestions: Exercises = await generateQuestions({ apiKey, subject, reference, history, difficulty, exercisesNumber: missingQuestions, addQuestions });
 
         return [...exercises, ...remainingQuestions]; 
     } catch (error) {

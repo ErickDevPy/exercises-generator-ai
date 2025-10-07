@@ -1,5 +1,5 @@
 import { generateQuestions } from "~/services";
-import type { History } from "~/types";
+import type { Exercises, History } from "~/types";
 
 interface generateExerciseListParams {
     apiKey: string | null;
@@ -8,9 +8,10 @@ interface generateExerciseListParams {
     reference?: string;
     difficulty: string;
     exercisesNumber: number;
+    addQuestions?: (exercises: Exercises) => void;
 }
 
-export async function generateExerciseList({ apiKey, subjects, reference, history, difficulty, exercisesNumber }: generateExerciseListParams) {
+export async function generateExerciseList({ apiKey, subjects, reference, history, difficulty, exercisesNumber, addQuestions }: generateExerciseListParams) {
     if (!apiKey) throw new Error('API key is required');
     
     let currentHistory = history;
@@ -25,19 +26,12 @@ export async function generateExerciseList({ apiKey, subjects, reference, histor
     const questionPromises = subjects.map(subject => {
         const historyForSubject = currentHistory![subject];
 
-        return generateQuestions({ apiKey, subject, reference, history: historyForSubject, difficulty, exercisesNumber});
+        return generateQuestions({ apiKey, subject, reference, history: historyForSubject, difficulty, exercisesNumber, addQuestions });
     });
 
     const results = await Promise.all(questionPromises);
 
     const questions = results.flat(); 
 
-    return {
-        subjects,
-        reference,
-        difficulty,
-        history: currentHistory,
-        exercisesNumber,
-        questions
-    }
+    return { questions };
 }

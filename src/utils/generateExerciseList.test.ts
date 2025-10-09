@@ -5,6 +5,21 @@ import type { Exercises } from '~/types';
 describe('generateExerciseList', () => {
   const apiKey = import.meta.env.VITE_KEY_API || null;
 
+  it('should generate exercises and verify the questions length', async () => {
+    const questions: Exercises = [];
+    const subjects = 'General Knowledge';
+    const difficulty = 'Hard';
+    const numberOfExercises = 15;
+    const addQuestions = (exercises: Exercises) => {
+      console.log('Number of exercises received:', exercises.length);
+      questions.push(...exercises);
+    };
+
+    await generateExerciseList({ apiKey, subjects, difficulty, history: undefined, exercisesNumber: numberOfExercises, addQuestions });
+    
+    expect(questions).toHaveLength(numberOfExercises);
+  });
+
   it('should generate 5 exercises for each of the 5 subjects', async () => {
     const subjects = 'Basic Algebra, Linear Equations, Quadratic Functions, Trigonometry, Calculus';
     const difficulty = 'Easy';
@@ -39,18 +54,5 @@ describe('generateExerciseList', () => {
     expect(response).toHaveProperty('questions');
   });
 
-  it('should generate exercises and verify the questions length', async () => {
-    const questions: Exercises = [];
-    const subjects = 'General Knowledge';
-    const difficulty = 'Hard';
-    const numberOfExercises = 8;
-    const addQuestions = (exercises: Exercises) => {
-      console.log('Number of exercises received:', exercises.length);
-      questions.push(...exercises);
-    };
-
-    await generateExerciseList({ apiKey, subjects, difficulty, history: undefined, exercisesNumber: numberOfExercises, addQuestions });
-    
-    expect(questions).toHaveLength(numberOfExercises);
-  });
+  
 });

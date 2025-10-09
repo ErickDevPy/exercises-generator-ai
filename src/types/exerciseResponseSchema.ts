@@ -1,7 +1,6 @@
 export const EXERCISE_RESPONSE_SCHEMA = {
     type: "array", 
     description: "A complete list of generated multiple-choice questions.",
-    
     items: {
         type: "object",
         properties: {
@@ -22,7 +21,7 @@ export const EXERCISE_RESPONSE_SCHEMA = {
             },
             explanation: {
                 type: "string",
-                description: "A brief, clear, and comprehensive explanation detailing why the answer is correct."
+                description: "A brief and ultra-concise explanation of the calculation steps. Limit the explanation to a maximum of 3 sentences (or approximately 50 words) to save tokens. Do NOT include any self-correction or conversational filler."
             }
         },
         required: ["question", "options", "answer", "explanation"],

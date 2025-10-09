@@ -26,13 +26,6 @@ export function createPrompt({ subject, reference, history, difficulty, exercise
 **2. Difficulty Level:** ${difficulty}
 **3. Target Number of Questions:** ${exercisesNumber} (This is a target, not a strict requirement. See the critical instruction below).${optionalCriteria}
 ---
-### CRITICAL INSTRUCTION: OUTPUT SIZE MANAGEMENT
----
-**Your absolute priority is to generate a complete and valid JSON response.** The 4096 token output limit is a hard constraint.
-- You **must** proactively stop generating new questions if you estimate that adding another one will cause the total output to exceed the 4096 token limit.
-- It is **mandatory** to return fewer questions than the target if necessary to respect the token limit. An incomplete or truncated JSON response is considered a failure.
-
----
 ### OUTPUT FORMAT
 ---
 **IMPORTANT:** You must format the entire response as a single, valid JSON array of objects. Do not include any text or explanation outside of the JSON structure.

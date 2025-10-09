@@ -33,13 +33,15 @@ export async function generateQuestions({ apiKey, subject, reference, history, d
         config: {
             responseMimeType: "application/json",
             responseSchema: EXERCISE_RESPONSE_SCHEMA,
-            temperature: 0.2,
-            maxOutputTokens: 4096,
+            systemInstruction: "You are a professional quiz generator. Your ONLY output MUST be the JSON object strictly adhering to the schema. **CRITICAL RULE**: All questions must be mathematically sound, and the final 'answer' field MUST be one of the strings exactly present in the 'options' array. The 'explanation' must be concise and free of any self-correction or discussion of errors/inconsistencies. Do NOT generate inconsistent questions.",
+            temperature: 0.5
         }
     });
 
     try {
         const response = await limiter.schedule(apiCallFn);
+
+        console.log("API response received:", response);
 
         if (!response || !response.text) {
             throw new Error('Error generating questions');

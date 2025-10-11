@@ -44,3 +44,11 @@
 .question-option {
     @apply flex items-center justify-center gap-5 p-3 rounded-2xl text-gray-800;
 }
+
+.question {
+    @apply text-xl font-bold text-gray-900 leading-normal
+}
+
+.question-counter {
+    @apply text-sm font-medium text-indigo-600 uppercase mb-1
+}

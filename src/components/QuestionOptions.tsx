@@ -9,7 +9,7 @@ interface QuestionOptionsProps {
 
 export function QuestionOptions({options, answer, selectedOption, onOptionChange}: QuestionOptionsProps) {
     return (
-        <div>
+        <div className="flex flex-col gap-5 my-2 p-2">
             {options.map((option, index) => (
                 <Option key={index} value={option} answer={answer} selectedOption={selectedOption} onChange={onOptionChange}/>
             ))}

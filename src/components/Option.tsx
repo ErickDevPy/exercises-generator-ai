@@ -9,11 +9,11 @@ export function Option({value, answer, selectedOption, onChange}: OptionProps) {
 
     const bgColor = selectedOption
         ? (value === answer ? 'bg-green-300' : 'bg-red-300')
-        : 'bg-gray-500';
+        : 'bg-white';
 
     return (
-        <button onClick={() => onChange(value)} className={bgColor}> 
-            <label>{value}</label>
+        <button onClick={() => onChange(value)} className={`question-option ${bgColor}`}> 
+            {value}
         </button>
     );
 }

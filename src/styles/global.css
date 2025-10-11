@@ -40,3 +40,7 @@
 .main-input {
     @apply bg-white p-5 rounded-3xl;
 }
+
+.question-option {
+    @apply flex items-center justify-center gap-5 p-3 rounded-2xl text-gray-800;
+}

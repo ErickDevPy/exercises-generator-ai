@@ -16,13 +16,19 @@ export function useExercisesPage() {
 
     const onGenerateExercises = async () => {
         setLoading(true);
-        const apiKey = localStorage.getItem('key');
-        await generateExerciseList({ apiKey, subjects, reference, difficulty, exercisesNumber, history: undefined, addQuestions});
-        console.log(questions);
-        setLoading(false);
+        try {
+            const apiKey = localStorage.getItem('key');
+            await generateExerciseList({ apiKey, subjects, reference, difficulty, exercisesNumber, history: undefined, addQuestions});
+            console.log(questions);
+        } catch (error) {
+            console.error("Error generating exercises:", error);
+        } finally {
+            setLoading(false);
+        }
     }
     
     return {
+        questions,
         loading,
         onGenerateExercises
     };

@@ -1,12 +1,18 @@
 interface OptionProps {
     value: string;
-    selected: boolean;
+    answer: string;
+    selectedOption: string | null;
     onChange: (value: string) => void;
 }
 
-export function Option({value, selected, onChange}: OptionProps) {
+export function Option({value, answer, selectedOption, onChange}: OptionProps) {
+
+    const bgColor = selectedOption
+        ? (value === answer ? 'bg-green-300' : 'bg-red-300')
+        : 'bg-gray-500';
+
     return (
-        <button onClick={() => onChange(value)} className={selected ? 'bg-green-300' : 'bg-gray-500'}> 
+        <button onClick={() => onChange(value)} className={bgColor}> 
             <label>{value}</label>
         </button>
     );

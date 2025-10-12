@@ -1,12 +1,19 @@
 @import "tailwindcss";
 
 :root {
-    --color-primary: #1E40AF;
-    --color-primary-light: #3B82F6;
-    --color-secondary: #60A5FA;
+    --color-primary-main: #2563EB; 
+    --color-primary-dark: #1D4ED8;
+    --color-primary-light: #60A5FA;
 
-    --color-background-light: #F8FAFF;
+    --color-accent-subtle: #9333EA;
+
+    --color-background-app: #EBEDF4; 
+    --color-background-card: #FFFFFF;
+    --color-border-subtle: #E5E7EB;
+
     --color-text-dark: #1F2937;
+    --color-text-medium: #4B5563;
+    --color-text-light: #9CA3AF;
 }
 
 @layer base {
@@ -17,12 +24,12 @@
 
 .background {
     @apply flex w-screen h-screen justify-center items-center;
-    background-color: var(--color-background-light);
+    background-color: var(--color-background-app);
 }
 
 .container {
-    @apply flex w-[70%] h-[80%] p-5 rounded-3xl;
-    background-color: var(--color-primary);
+    @apply flex w-[70%] h-[80%] p-5 rounded-3xl drop-shadow-xl;
+    background-color: var(--color-background-card);
 }
 
 .items-col {
@@ -39,6 +46,11 @@
 
 .main-input {
     @apply bg-white p-5 rounded-3xl;
+}
+
+.question-title {
+    @apply text-4xl text-center font-bold text-white w-[90%] my-2;
+    background-color: var(--color-primary-light)
 }
 
 .question-option {

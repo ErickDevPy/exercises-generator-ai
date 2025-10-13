@@ -5,7 +5,7 @@ interface QuestionHeaderProps {
 
 export function QuestionHeader({number, question}: QuestionHeaderProps) {
     return (
-        <div>
+        <div className="flex flex-col gap-2">
             <h2 className="question-counter">
                 Question {number}
             </h2>

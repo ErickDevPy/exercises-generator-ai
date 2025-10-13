@@ -6,13 +6,16 @@ interface OptionProps {
 }
 
 export function Option({value, answer, selectedOption, onChange}: OptionProps) {
+    const isDisabled = selectedOption !== null;
 
-    const bgColor = selectedOption
-        ? (value === answer ? 'bg-green-300' : 'bg-red-300')
-        : 'bg-white';
+    const selectedBg = selectedOption
+        ? (value === answer ? 'bg-green-300' : 'bg-red-400')
+        : '';
+
+    const disabledStyle = isDisabled ? 'pointer-events-none' : '';
 
     return (
-        <button onClick={() => onChange(value)} className={`question-option ${bgColor}`}> 
+        <button disabled={isDisabled} onClick={() => onChange(value)} className={`question-option ${selectedBg} ${disabledStyle}`}> 
             {value}
         </button>
     );

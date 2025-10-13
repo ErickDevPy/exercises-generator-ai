@@ -22,13 +22,22 @@
     }
 }
 
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
 .background {
-    @apply flex w-screen h-screen justify-center items-center;
+    @apply flex max-w-screen h-screen justify-center items-center;
     background-color: var(--color-background-app);
 }
 
 .container {
-    @apply flex w-[70%] h-[80%] p-5 rounded-3xl drop-shadow-xl;
+    @apply flex w-[80%] h-[90%] p-5 rounded-3xl drop-shadow-xl;
     background-color: var(--color-background-card);
 }
 
@@ -37,10 +46,12 @@
 }
 
 .main-btn {
-    @apply rounded-3xl p-5 text-2xl font-light bg-white transition duration-300 ease-in-out;
+    @apply rounded-3xl p-5 text-2xl text-white font-light transition duration-300 ease-in-out;
+    background-color: var(--color-primary-main);
 }
 
 .main-btn:hover {
+    color: var(--color-text-dark);
     background-color: var(--color-primary-light);
 }
 
@@ -48,13 +59,32 @@
     @apply bg-white p-5 rounded-3xl;
 }
 
+.question-card {
+    @apply bg-white w-[80%] p-6 rounded-lg shadow-lg mb-6 border border-gray-100;
+}
+
+.exercises-header {
+    @apply flex w-screen fixed top-0 left-0 h-[8%] drop-shadow-2xl justify-between items-center pr-20 z-10;
+    background-color: var(--color-primary-light);
+}
+
+.exercises-bottom {
+    @apply flex w-screen fixed bottom-0 left-0 h-[10%] drop-shadow-2xl justify-center items-center z-10;
+}
+
 .question-title {
-    @apply text-4xl text-center font-bold text-white w-[90%] my-2;
-    background-color: var(--color-primary-light)
+    @apply text-4xl text-center font-bold text-white;
 }
 
 .question-option {
-    @apply flex items-center justify-center gap-5 p-3 rounded-2xl text-gray-800;
+    @apply flex items-center justify-center gap-5 p-3 rounded-2xl text-xl;
+    border: var(--color-border-subtle) 2px solid;
+    color: var(--color-text-dark);
+}
+
+.question-option:hover {
+    @apply cursor-pointer border-black;
+    background-color: var(--color-border-subtle);
 }
 
 .question {

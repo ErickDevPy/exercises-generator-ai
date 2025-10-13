@@ -14,7 +14,7 @@ interface QuestionProps {
 export function Question({question, number, options, answer, explanation}: QuestionProps) {
     const { selectedOption, showExplanation, onOptionChange } = useQuestion();
     return (
-        <div>
+        <div className="question-card">
             <QuestionHeader number={number} question={question}/>
             <QuestionOptions options={options} answer={answer} selectedOption={selectedOption} onOptionChange={onOptionChange}/>
             <QuestionExplanation showExplanation={showExplanation} explanation={explanation}/>

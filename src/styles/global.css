@@ -67,8 +67,20 @@
 }
 
 .exercises-header {
-    @apply flex w-screen fixed top-0 left-0 h-[8%] drop-shadow-2xl justify-between items-center pr-20 z-10;
-    background-color: var(--color-primary-light);
+    @apply flex justify-between items-center w-full fixed top-0 left-0 h-16 sm:h-20 z-50 px-20 drop-shadow-md;
+    background-color: var(--color-primary-dark);
+}
+
+.header-title {
+    @apply absolute left-1/2 -translate-x-1/2 text-3xl font-bold text-white;
+}
+
+.left-icon {
+    @apply text-white transition-colors duration-200;
+}
+
+.left-icon:hover {
+    color: var(--color-text-light)
 }
 
 .exercises-bottom {

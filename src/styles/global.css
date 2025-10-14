@@ -101,3 +101,15 @@
     color: var(--color-text-medium);
     border-color: var(--color-border-subtle);
 }
+
+.explanation-container {
+    @apply mt-4 p-4 border-l-4 rounded-md shadow-inner;
+    background-color: var(--color-background-app);
+    color: var(--color-text-medium);
+    border-color: var(--color-accent-subtle)
+}
+
+.explanation-title {
+    @apply font-semibold text-sm mb-2;
+    color: var(--color-text-dark);
+}

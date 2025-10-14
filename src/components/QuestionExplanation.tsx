@@ -7,8 +7,8 @@ export function QuestionExplanation({ showExplanation, explanation }: QuestionEx
     if (!showExplanation) return null
 
     return (
-        <div className="mt-4 p-4 bg-gray-100 border-l-4 border-indigo-500 rounded-md shadow-inner text-gray-700">
-            <h4 className="font-semibold text-sm mb-2 text-gray-800">
+        <div className="explanation-container">
+            <h4 className="explanation-title">
                 Explanation:
             </h4>
             <p className="text-sm leading-relaxed">

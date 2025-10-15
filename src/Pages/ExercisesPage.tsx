@@ -2,11 +2,11 @@ import { ExercisesPageBody, ExercisesPageBottom, ExercisesPageHeader } from "~/c
 import { useExercisesPage } from "~/hooks";
 
 export function ExercisesPage() {
-    const { loading, questions, onGenerateExercises } = useExercisesPage();
+    const { loading, questions, onGenerateExercises, onGoPreviousPage } = useExercisesPage();
 
     return (
         <div className="background">
-            <ExercisesPageHeader/>
+            <ExercisesPageHeader onGoPreviousPage={onGoPreviousPage}/>
             <ExercisesPageBody questions={questions} />
             <ExercisesPageBottom loading={loading} onGenerateExercises={onGenerateExercises}/>
         </div>

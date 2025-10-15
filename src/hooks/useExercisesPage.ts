@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import type { Exercises } from "~/types";
 import { generateExerciseList } from "~/utils";
 
 export function useExercisesPage() {
+    const navigate = useNavigate();
     const location = useLocation();
     const params = location.state || {};
     const { subjects, reference, difficulty, exercisesNumber } = params;
     const [questions, setQuestions] = useState<Exercises>([]);
     const [loading, setLoading] = useState(false);
+
+    const onGoPreviousPage = () => {
+        navigate(-1);
+    }
     
     const addQuestions = (newQuestions: Exercises) => {
         setQuestions(prev => [...prev, ...newQuestions]);
@@ -30,6 +35,7 @@ export function useExercisesPage() {
     return {
         questions,
         loading,
-        onGenerateExercises
+        onGenerateExercises,
+        onGoPreviousPage
     };
 }

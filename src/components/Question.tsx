@@ -12,7 +12,7 @@ interface QuestionProps {
 }
 
 export function Question({question, number, options, answer, explanation}: QuestionProps) {
-    const { selectedOption, showExplanation, onOptionChange } = useQuestion();
+    const { selectedOption, showExplanation, onOptionChange } = useQuestion({number});
     return (
         <div className="question-card">
             <QuestionHeader number={number} question={question}/>

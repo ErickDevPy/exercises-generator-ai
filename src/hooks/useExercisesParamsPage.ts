@@ -26,6 +26,7 @@ export function useExercisesParamsPage() {
     }
 
     const onGoToExercisesPage = async (subjects: string, reference: string | undefined, difficulty: string, exercisesNumber: number) => {
+        sessionStorage.clear()
         navigate('/exercises', {
             state: { subjects, reference, difficulty, exercisesNumber }
         });

@@ -23,6 +23,8 @@ export function useExercisesPage() {
 
     const onGenerateExercises = async () => {
         setLoading(true);
+        sessionStorage.clear();
+        setQuestions([])
         try {
             const apiKey = localStorage.getItem('key');
             await generateExerciseList({ apiKey, subjects, reference, difficulty, exercisesNumber, history: undefined, addQuestions});
@@ -40,8 +42,8 @@ export function useExercisesPage() {
         if (storedExercises) {
             try {
                 setQuestions(JSON.parse(storedExercises));
-            } catch (e) {
-                console.error("Erro ao carregar exercises do sessionStorage:", e);
+            } catch (error) {
+                console.error("Error loading stored exercises:", error);
             }
         }
     }, []);

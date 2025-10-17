@@ -1,25 +1,64 @@
 import { useExercisesParamsPage } from "~/hooks";
 
+const DIFFICULTIES = ["Easy", "Medium", "Hard"];
+
 export function ExercisesParamsPage() {
-    const { subjects, reference, exercisesNumber, difficulty, difficulties, onSubjectsChange, onReferenceChange, onExercisesNumberChange, onDifficultyChange, onGoToExercisesPage, onBackToMenu } = useExercisesParamsPage();
+    const { register, onSubmit, handleSubmit, formState: { errors, isSubmitting }, onBackToMenu } = useExercisesParamsPage();
     return (
         <div className="background">
             <div className="container flex-col justify-center items-center gap-15">
                 <h1>Exercises Parameters</h1>
-                <div className="items-col">
-                    <input id="subjects" value={subjects} onChange={(e) => onSubjectsChange(e.target.value)} className="main-input" type="text" placeholder="Type the subject(s) of the exercises here"/>
-                    <input id="reference" value={reference} onChange={(e) => onReferenceChange(e.target.value)} className="main-input" type="text" placeholder="Enter the reference source/institution for the exercises. (Optional)"/>
-                    <select id="difficulty" value={difficulty} onChange={(e) => onDifficultyChange(e.target.value)} className="main-input">
-                        {difficulties.map(diff => (
+                <form onSubmit={handleSubmit(onSubmit)} className="items-col">
+                    <input 
+                        id="subjects"
+                        {...register("subjects")}
+                        className={'main-input'}
+                        type="text" 
+                        placeholder="Type the subject(s) of the exercises here"
+                    />
+                    {errors.subjects && <p className="error-message">{errors.subjects.message}</p>}
+                    <input 
+                        id="reference"
+                        {...register("reference")}
+                        className={'main-input'}
+                        type="text" 
+                        placeholder="Enter the reference source/institution for the exercises. (Optional)"
+                    />
+                    {errors.reference && <p className="error-message">{errors.reference.message}</p>}
+                    <select 
+                        id="difficulty"
+                        {...register("difficulty")}
+                        className={'main-input'}
+                    >
+                        {DIFFICULTIES.map(diff => (
                             <option key={diff} value={diff.toLowerCase()}>{diff}</option>
                         ))}
                     </select>
-                    <input id="exercisesNumber" value={exercisesNumber} onChange={(e) => onExercisesNumberChange(e.target.valueAsNumber)} className="main-input" type="number" placeholder="Number of exercises per subject"/>
-                </div>
-                <div className="items-col">
-                    <button onClick={() => onGoToExercisesPage()} className="main-btn">Continue</button>
-                    <button onClick={() => onBackToMenu()} className="main-btn">Back to Menu</button>
-                </div>
+                    {errors.difficulty && <p className="error-message">{errors.difficulty.message}</p>}
+                    <input 
+                        id="exercisesNumber" 
+                        {...register("exercisesNumber")} 
+                        className={`main-input ${errors.exercisesNumber ? 'input-error' : ''}`}
+                        type="number" 
+                        placeholder="Number of exercises per subject"
+                    />
+                    {errors.exercisesNumber && <p className="error-message">{errors.exercisesNumber.message}</p>}
+                    <div className="items-col">
+                        <button 
+                            type="submit" 
+                            className="main-btn"
+                        >
+                            {isSubmitting ? "Loading..." : "Continue"}
+                        </button>
+                        <button 
+                            onClick={onBackToMenu} 
+                            className="main-btn"
+                            type="button" 
+                        >
+                            Back to Menu
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     )

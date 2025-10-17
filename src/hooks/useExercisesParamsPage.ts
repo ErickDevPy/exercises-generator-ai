@@ -1,31 +1,31 @@
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import {  EXERCISE_PARAMS_SCHEMA, type ExerciseParamsData, type ExerciseParamsInput } from "~/types";
 
 export function useExercisesParamsPage() {
     const navigate = useNavigate();
-    const [subjects, setSubjects] = useState('');
-    const [reference, setReference] = useState('');
-    const [difficulty, setDifficulty] = useState('Easy');
-    const difficulties = ['Easy', 'Medium', 'Hard'];
-    const [exercisesNumber, setExercisesNumber] = useState(5);
+    const {
+        register,
+        handleSubmit,
+        formState,
+    } = useForm<ExerciseParamsInput, any, ExerciseParamsData>({ 
+        resolver: zodResolver(EXERCISE_PARAMS_SCHEMA),
+        defaultValues: {
+            subjects: "",
+            reference: "",
+            difficulty: 'easy',
+            exercisesNumber: '10', 
+        },
+        mode: "onBlur"
+    });
 
-    const onSubjectsChange = (newSubjects: string) => {
-        setSubjects(newSubjects);
+    const onSubmit: SubmitHandler<ExerciseParamsData> = (data) => {
+        const { subjects, reference, difficulty, exercisesNumber } = data
+        onGoToExercisesPage(subjects, reference, difficulty, exercisesNumber)
     }
 
-    const onReferenceChange = (newReference: string) => {
-        setReference(newReference);
-    }
-
-    const onDifficultyChange = (newDifficulty: string) => {
-        setDifficulty(newDifficulty);
-    }
-
-    const onExercisesNumberChange = (newNumber: number) => {
-        setExercisesNumber(newNumber);
-    }
-
-    const onGoToExercisesPage = async () => {
+    const onGoToExercisesPage = async (subjects: string, reference: string | undefined, difficulty: string, exercisesNumber: number) => {
         navigate('/exercises', {
             state: { subjects, reference, difficulty, exercisesNumber }
         });
@@ -36,16 +36,10 @@ export function useExercisesParamsPage() {
     }
 
     return {
-        subjects,
-        reference,
-        exercisesNumber,
-        difficulty,
-        difficulties,
-        onSubjectsChange,
-        onReferenceChange,
-        onExercisesNumberChange,
-        onDifficultyChange,
-        onGoToExercisesPage,
+        register,
+        handleSubmit,
+        formState,
+        onSubmit,
         onBackToMenu
     };
 }

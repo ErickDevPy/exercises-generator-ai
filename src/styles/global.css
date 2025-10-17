@@ -1,16 +1,21 @@
 @import "tailwindcss";
 
 :root {
+    /* Primary Colors */
     --color-primary-main: #2563EB; 
     --color-primary-dark: #1D4ED8;
     --color-primary-light: #60A5FA;
 
+    /* Accent & Error Colors */
     --color-accent-subtle: #9333EA;
+    --color-error-main: #EF4444;
 
+    /* Backgrounds & Borders */
     --color-background-app: #EBEDF4; 
     --color-background-card: #FFFFFF;
     --color-border-subtle: #E5E7EB;
 
+    /* Text Colors */
     --color-text-dark: #1F2937;
     --color-text-medium: #4B5563;
     --color-text-light: #9CA3AF;
@@ -24,6 +29,8 @@
     }
 }
 
+/* --- Utility Classes --- */
+
 .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -32,6 +39,8 @@
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
 }
+
+/* --- Layout & Container Classes --- */
 
 .background {
     @apply flex max-w-screen h-screen justify-center items-center;
@@ -44,11 +53,23 @@
 }
 
 .items-col {
-    @apply flex flex-col gap-8;
+    @apply flex flex-col justify-center items-center gap-8 w-full;
+}
+
+/* --- Input, Button, and Error Classes --- */
+
+.main-input {
+    @apply p-5 rounded-3xl w-[40%];
+    background-color: var(--color-background-app);
+}
+
+.main-input:focus {
+    @apply outline-none border-2;
+    border-color: var(--color-primary-main);
 }
 
 .main-btn {
-    @apply rounded-3xl p-5 text-2xl text-white font-light transition duration-300 ease-in-out;
+    @apply rounded-3xl p-5 text-2xl text-white w-[30%] font-light transition duration-300 ease-in-out;
     background-color: var(--color-primary-main);
 }
 
@@ -57,14 +78,21 @@
     background-color: var(--color-primary-light);
 }
 
-.main-input {
-    @apply p-5 rounded-3xl;
-    background-color: var(--color-background-app);
+.input-error {
+    @apply p-5 rounded-3xl border-2; 
+    border-color: var(--color-error-main);
 }
 
-.question-card {
-    @apply bg-white w-[80%] p-6 rounded-lg shadow-lg mb-6 border border-gray-100;
+.main-input.input-error {
+    border: 2px solid var(--color-error-main);
 }
+
+.error-message {
+    @apply text-sm font-semibold mt-[-0.5rem] px-2;
+    color: var(--color-error-main);
+}
+
+/* --- Header --- */
 
 .exercises-header {
     @apply flex justify-between items-center w-full fixed top-0 left-0 h-16 sm:h-20 z-50 px-20 drop-shadow-md;
@@ -83,22 +111,23 @@
     color: var(--color-text-light)
 }
 
-.exercises-empty-container {
-    @apply flex flex-col items-center justify-center h-full;
-    color: var(--color-text-medium)
-}
-
-.exercises-empty-icon {
-    @apply w-40 h-40 mb-4;
-    color: var(--color-text-medium)
-}
-
 .exercises-bottom {
     @apply flex w-screen fixed bottom-0 left-0 h-[10%] drop-shadow-2xl justify-center items-center z-10;
 }
 
+/* --- Question & Exercises Components --- */
+
+.question-card {
+    @apply bg-white w-[80%] p-6 rounded-lg shadow-lg mb-6 border border-gray-100;
+}
+
 .question-title {
     @apply text-4xl text-center font-bold text-white;
+}
+
+.question {
+    @apply text-xl font-bold leading-normal;
+    color: var(--color-text-dark)
 }
 
 .question-option {
@@ -110,11 +139,6 @@
 .question-option:hover {
     @apply cursor-pointer border-black;
     background-color: var(--color-border-subtle);
-}
-
-.question {
-    @apply text-xl font-bold leading-normal;
-    color: var(--color-text-dark)
 }
 
 .question-counter {
@@ -134,4 +158,14 @@
 .explanation-title {
     @apply font-semibold text-sm mb-2;
     color: var(--color-text-dark);
+}
+
+.exercises-empty-container {
+    @apply flex flex-col items-center justify-center h-full;
+    color: var(--color-text-medium)
+}
+
+.exercises-empty-icon {
+    @apply w-40 h-40 mb-4;
+    color: var(--color-text-medium)
 }

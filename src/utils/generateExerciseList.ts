@@ -8,13 +8,14 @@ interface generateExerciseListParams {
     reference?: string;
     difficulty: string;
     exercisesNumber: number;
+    updateHistory?: (history: History) => void;
     addQuestions?: (exercises: Exercises) => void;
 }
 
-export async function generateExerciseList({ apiKey, subjects, reference, history, difficulty, exercisesNumber, addQuestions }: generateExerciseListParams) {
+export async function generateExerciseList({ apiKey, subjects, reference, history, difficulty, exercisesNumber, updateHistory, addQuestions }: generateExerciseListParams) {
     if (!apiKey) throw new Error('API key is required');
     
-    let currentHistory = history;
+    let currentHistory = history
     
     if (typeof subjects === 'string') subjects = subjects.split(',')
 
@@ -31,7 +32,9 @@ export async function generateExerciseList({ apiKey, subjects, reference, histor
 
     const results = await Promise.all(questionPromises);
 
-    const questions = results.flat(); 
+    const questions = results.flat();
+
+    if (updateHistory) updateHistory(currentHistory)
 
     return { questions };
 }

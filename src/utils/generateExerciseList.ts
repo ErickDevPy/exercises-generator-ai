@@ -3,7 +3,7 @@ import type { Exercises, History } from "~/types";
 
 interface generateExerciseListParams {
     apiKey: string | null;
-    subjects: string[] | string;
+    subjects: string[];
     history: History | undefined;
     reference?: string;
     difficulty: string;
@@ -16,8 +16,6 @@ export async function generateExerciseList({ apiKey, subjects, reference, histor
     if (!apiKey) throw new Error('API key is required');
     
     let currentHistory = history
-    
-    if (typeof subjects === 'string') subjects = subjects.split(',')
 
     if (!currentHistory) {
         currentHistory = {}; 

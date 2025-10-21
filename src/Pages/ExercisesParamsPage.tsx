@@ -1,21 +1,16 @@
+import { SubjectInput } from "~/components";
 import { useExercisesParamsPage } from "~/hooks";
 
 const DIFFICULTIES = ["Easy", "Medium", "Hard"];
 
 export function ExercisesParamsPage() {
-    const { register, onSubmit, handleSubmit, formState: { errors, isSubmitting }, onBackToMenu } = useExercisesParamsPage();
+    const { setValue, register, onSubmit, handleSubmit, formState: { errors, isSubmitting }, onBackToMenu } = useExercisesParamsPage();
     return (
         <div className="background">
             <div className="container flex-col justify-center items-center gap-15">
                 <h1>Exercises Parameters</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className="items-col">
-                    <input 
-                        id="subjects"
-                        {...register("subjects")}
-                        className={'main-input'}
-                        type="text" 
-                        placeholder="Type the subject(s) of the exercises here"
-                    />
+                    <SubjectInput setValue={setValue} name={"subjects"} placeholder="Type the subject(s) of the exercises here" />
                     {errors.subjects && <p className="error-message">{errors.subjects.message}</p>}
                     <input 
                         id="reference"

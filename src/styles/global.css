@@ -59,13 +59,31 @@
 /* --- Input, Button, and Error Classes --- */
 
 .main-input {
-    @apply p-5 rounded-3xl w-[40%];
+    @apply p-5 rounded-3xl w-[40%] max-h-[100px] overflow-y-scroll;
     background-color: var(--color-background-app);
 }
 
 .main-input:focus {
     @apply outline-none border-2;
     border-color: var(--color-primary-main);
+}
+
+.inside-input {
+    @apply w-full outline-0
+}
+
+.tag-container {
+    @apply flex flex-wrap gap-1;
+}
+
+.tag-item {
+    @apply flex p-2 rounded-2xl w-fit gap-1;
+    background-color: var(--color-text-light)
+}
+
+.tag-remove-button {
+    @apply px-2 rounded-2xl;
+    background-color: var(--color-error-main);
 }
 
 .main-btn {

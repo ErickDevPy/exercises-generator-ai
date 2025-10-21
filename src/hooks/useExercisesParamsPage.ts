@@ -9,10 +9,11 @@ export function useExercisesParamsPage() {
         register,
         handleSubmit,
         formState,
+        setValue
     } = useForm<ExerciseParamsInput, any, ExerciseParamsData>({ 
         resolver: zodResolver(EXERCISE_PARAMS_SCHEMA),
         defaultValues: {
-            subjects: "",
+            subjects: [],
             reference: "",
             difficulty: 'easy',
             exercisesNumber: '10', 
@@ -25,7 +26,7 @@ export function useExercisesParamsPage() {
         onGoToExercisesPage(subjects, reference, difficulty, exercisesNumber)
     }
 
-    const onGoToExercisesPage = async (subjects: string, reference: string | undefined, difficulty: string, exercisesNumber: number) => {
+    const onGoToExercisesPage = async (subjects: string[], reference: string | undefined, difficulty: string, exercisesNumber: number) => {
         sessionStorage.clear()
         navigate('/exercises', {
             state: { subjects, reference, difficulty, exercisesNumber }
@@ -37,6 +38,7 @@ export function useExercisesParamsPage() {
     }
 
     return {
+        setValue,
         register,
         handleSubmit,
         formState,
